@@ -8,6 +8,7 @@
 	"packageManager": "pnpm@9.12.2",
 	"scripts": {
 		"prepare": "husky",
+		"vercel-build": "prisma generate && prisma db push && prisma db seed",
 		"start": "ts-node index.ts",
 		"dev": "nodemon index.ts",
 		"lint": "eslint \"**/*.ts\" --fix",
