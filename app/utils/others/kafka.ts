@@ -8,7 +8,7 @@ const kafka = new Kafka({
 	ssl: true,
 });
 
-const consumer = kafka.consumer({ groupId: 'users' });
+const consumer = kafka.consumer({ groupId: 'users', sessionTimeout: 45000 });
 const producer = kafka.producer({ createPartitioner: Partitioners.DefaultPartitioner });
 
 export async function send(messages: { key: string; value: string }) {
