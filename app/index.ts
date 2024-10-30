@@ -1,10 +1,12 @@
 import { App } from './app';
 import { syncUser } from './kafka/kafka.service';
 
-async function bootstrap() {
-	const app = new App();
+const app = new App();
 
+async function bootstrap() {
 	app.start();
 	await syncUser();
 }
 bootstrap();
+
+export default app.app;
