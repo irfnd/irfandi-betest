@@ -4,12 +4,20 @@ info:
   version: 1.0.0
   description: |-
     Implementation for technical test [Code.id](https://www.code.id/)
-    - [Express](https://expressjs.com/) ([TypeScript](https://www.typescriptlang.org/))
-    - [MongoDB](https://www.mongodb.com/) ([Prisma](https://www.prisma.io/))
-    - [Kafka](https://kafka.apache.org/) ([KafkaJS](https://kafka.js.org/), [Confluent](https://www.confluent.io/))
-    - [Redis](https://redis.io/) ([Upstash](https://upstash.com/))
-    - [Scalar Docs](https://scalar.com/)
-    - [Vercel](https://vercel.com/)
+    - **Backend**: using [Express](https://expressjs.com/) + [TypeScript](https://www.typescriptlang.org/)
+    - **Logging**: using [Morgan](https://github.com/expressjs/morgan)
+    - **Environment vars**: using [Dotenv](https://github.com/motdotla/dotenv)
+    - **Security**: set security HTTP headers using [Helmet](https://helmetjs.github.io/)
+    - **CORS**: Cross-Origin Resource-Sharing enabled using [Cors](https://github.com/expressjs/cors)
+    - **Compression**: gzip compression with [Compression](https://github.com/expressjs/compression)
+    - **Database**: using [MongoDB Atlas](https://www.mongodb.com/atlas) with [Prisma](https://www.prisma.io)
+    - **Message Broker**: using [Kafka](https://kafka.apache.org/) ([KafkaJS](https://kafka.js.org/), [Confluent](https://www.confluent.io/))
+    - **Caching**: using [Redis](https://redis.io/) ([Upstash](https://upstash.com/))
+    - **API Documentation**: using [Scalar Docs](https://scalar.com/)
+    - **CI/CD**: deploy on [Render](https://render.com/)
+    - **Git hooks**: with [Husky](https://github.com/typicode/husky) and [Lint-staged](https://github.com/okonet/lint-staged)
+    - **Linting**: with [Eslint](https://eslint.org/) and [Prettier](https://prettier.io/)
+    - **Validations**: schema validation with [Zod](https://zod.dev/)
   contact:
     email: irfandiabimanyu@gmail.com
 servers:
