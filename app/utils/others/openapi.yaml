@@ -1,0 +1,640 @@
+openapi: 3.0.3
+info:
+  title: Technical Test - Irfandi
+  version: 1.0.0
+  description: |-
+    Implementation for technical test [Code.id](https://www.code.id/)
+    - [Express](https://expressjs.com/) ([TypeScript](https://www.typescriptlang.org/))
+    - [MongoDB](https://www.mongodb.com/) ([Prisma](https://www.prisma.io/))
+    - [Kafka](https://kafka.apache.org/) ([KafkaJS](https://kafka.js.org/), [Confluent](https://www.confluent.io/))
+    - [Redis](https://redis.io/) ([Upstash](https://upstash.com/))
+    - [Scalar Docs](https://scalar.com/)
+    - [Vercel](https://vercel.com/)
+  contact:
+    email: irfandiabimanyu@gmail.com
+servers:
+  - url: http://localhost:8080
+  - url: https://ms-irfandi-betest.vercel.app
+
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - id
+        - userName
+        - emailAddress
+        - accountNumber
+        - identityNumber
+      properties:
+        id:
+          type: string
+          example: 6720f559470539b2aed9c6e5
+        userName:
+          type: string
+          example: user_one
+        emailAddress:
+          type: string
+          format: email
+          example: user.one@mail.com
+        accountNumber:
+          type: string
+          example: "000000001"
+        identityNumber:
+          type: string
+          example: "000000001"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2021-07-14T00:00:00.000Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2021-07-14T00:00:00.000Z"
+    ValidationError:
+      type: object
+      required:
+        - message
+        - path
+      properties:
+        message:
+          type: string
+          example: "Path validation message"
+        path:
+          type: string
+          example: "Validation path"
+    SignInBody:
+      required:
+        - emailAddress
+        - password
+      type: object
+      properties:
+        emailAddress:
+          type: string
+          format: email
+          example: admin@mail.com
+        password:
+          type: string
+          example: Admin123.
+    CreateUserBody:
+      required:
+        - userName
+        - emailAddress
+        - accountNumber
+        - identityNumber
+      type: object
+      properties:
+        userName:
+          type: string
+          example: user_one
+        emailAddress:
+          type: string
+          format: email
+          example: user.one@mail.com
+        accountNumber:
+          type: string
+          example: "000000001"
+        identityNumber:
+          type: string
+          example: "000000001"
+    UpdateUserBody:
+      type: object
+      properties:
+        userName:
+          type: string
+          example: user_one
+        emailAddress:
+          type: string
+          format: email
+          example: user.one@mail.com
+        accountNumber:
+          type: string
+          example: "000000001"
+        identityNumber:
+          type: string
+          example: "000000001"
+    BaseResponseUnauthorized:
+      type: object
+      required:
+        - statusCode
+        - message
+        - results
+      properties:
+        statusCode:
+          type: number
+          example: 401
+        message:
+          type: string
+          example: Unauthorized
+        results:
+          type: string
+          example: Please log in to continue.
+    BaseResponseBadRequest:
+      type: object
+      required:
+        - statusCode
+        - message
+        - results
+      properties:
+        statusCode:
+          type: number
+          example: 400
+        message:
+          type: string
+          example: Validation failed
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationError"
+    BaseResponseNotFound:
+      type: object
+      required:
+        - statusCode
+        - message
+        - results
+      properties:
+        statusCode:
+          type: number
+          example: 404
+        message:
+          type: string
+          example: User not found
+        results:
+          type: string
+          example: The user you are looking for does not exist
+    BaseResponseInternalServerError:
+      type: object
+      required:
+        - statusCode
+        - message
+        - results
+      properties:
+        statusCode:
+          type: number
+          example: 500
+        message:
+          type: string
+          example: Internal server error
+        results:
+          type: string
+          example: Something went wrong
+    SignInResponseOk:
+      type: object
+      required:
+        - statusCode
+        - message
+        - results
+      properties:
+        statusCode:
+          type: number
+          example: 200
+        message:
+          type: string
+          example: Sign in successful
+        results:
+          type: object
+          required:
+            - token
+          properties:
+            token:
+              type: string
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzIwZjU1OTQ3MDUzOWIyYWVkOWM2ZTUiLCJpYXQiOjE2MjYwNjYwNzYsImV4cCI6MTYyNjA2NjA3N30.7"
+    SignInResponseUnauthorized:
+      type: object
+      required:
+        - statusCode
+        - message
+        - results
+      properties:
+        statusCode:
+          type: number
+          example: 401
+        message:
+          type: string
+          example: Unauthorized
+        results:
+          type: string
+          example: Invalid email or password
+    FindAllUserResponseOk:
+      type: object
+      required:
+        - statusCode
+        - message
+        - results
+      properties:
+        statusCode:
+          type: number
+          example: 200
+        message:
+          type: string
+          example: Users retrieved
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+    CreateUserResponseOk:
+      type: object
+      required:
+        - statusCode
+        - message
+        - results
+      properties:
+        statusCode:
+          type: number
+          example: 200
+        message:
+          type: string
+          example: User created
+        results:
+          $ref: "#/components/schemas/User"
+    UpdateUserResponseOk:
+      type: object
+      required:
+        - statusCode
+        - message
+        - results
+      properties:
+        statusCode:
+          type: number
+          example: 200
+        message:
+          type: string
+          example: User updated
+        results:
+          $ref: "#/components/schemas/User"
+    DeleteUserResponseOk:
+      type: object
+      required:
+        - statusCode
+        - message
+        - results
+      properties:
+        statusCode:
+          type: number
+          example: 200
+        message:
+          type: string
+          example: User deleted
+        results:
+          $ref: "#/components/schemas/User"
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+tags:
+  - name: Auth
+    description: Authentication Admin
+  - name: Users
+    description: Users Management
+
+security:
+  - Bearer: []
+
+paths:
+  /auth/sign-in:
+    post:
+      tags:
+        - Auth
+      summary: Sign In Admin
+      description: "Sign In Admin"
+      operationId: signIn
+      parameters: []
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignInBody"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/SignInBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SignInResponseOk"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/SignInResponseOk"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseBadRequest"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseBadRequest"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SignInResponseUnauthorized"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/SignInResponseUnauthorized"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Find All Users
+      description: "Find All Users"
+      operationId: findAllUsers
+      parameters: []
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FindAllUserResponseOk"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/FindAllUserResponseOk"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseUnauthorized"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseUnauthorized"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
+    post:
+      tags:
+        - Users
+      summary: Create User
+      description: "Create User"
+      operationId: createUser
+      parameters: []
+      security:
+        - Bearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserBody"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/CreateUserBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateUserResponseOk"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/CreateUserResponseOk"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseBadRequest"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseBadRequest"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseUnauthorized"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseUnauthorized"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
+  /users/{number}:
+    get:
+      tags:
+        - Users
+      summary: Find User By Number
+      description: "Find User By Account Number/Identity Number"
+      operationId: findUserByNumber
+      security:
+        - Bearer: []
+      parameters:
+        - name: number
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "000000001"
+          description: Account Number/Identity Number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseBadRequest"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseBadRequest"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseUnauthorized"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseUnauthorized"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseNotFound"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseNotFound"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
+  /users/{id}:
+    patch:
+      tags:
+        - Users
+      summary: Update User By ID
+      description: "Update User by ID"
+      operationId: updateUser
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 6720f559470539b2aed9c6e5
+          description: User ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserBody"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/UpdateUserBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateUserResponseOk"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/UpdateUserResponseOk"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseBadRequest"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseBadRequest"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseUnauthorized"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseUnauthorized"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseNotFound"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseNotFound"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
+    delete:
+      tags:
+        - Users
+      summary: Delete User By ID
+      description: "Delete User by ID"
+      operationId: deleteUser
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 6720f559470539b2aed9c6e5
+          description: User ID
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteUserResponseOk"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/DeleteUserResponseOk"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseBadRequest"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseBadRequest"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseUnauthorized"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseUnauthorized"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseNotFound"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseNotFound"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: "#/components/schemas/BaseResponseInternalServerError"
