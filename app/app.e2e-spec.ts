@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker/locale/id_ID';
 import { StatusCodes } from 'http-status-codes';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
-import { App } from './index';
+import { App } from './app';
 import { Auth } from './utils/validations/schema-auth';
 import { User } from './utils/validations/schema-user';
 

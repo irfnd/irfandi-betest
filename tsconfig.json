@@ -5,8 +5,6 @@
 		"module": "CommonJS",
 		"rootDir": ".",
 		"moduleResolution": "Node",
-		"baseUrl": ".",
-		"paths": { "@/*": ["*"] },
 		"outDir": "./dist",
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
@@ -16,7 +14,7 @@
 		"skipLibCheck": true,
 		"types": ["vitest/globals"]
 	},
-	"include": ["app/**/*.ts", "index.ts"],
+	"include": ["app/**/*.ts", "server.ts"],
 	"exclude": ["node_modules"],
 	"ts-node": { "require": ["tsconfig-paths/register"] }
 }
