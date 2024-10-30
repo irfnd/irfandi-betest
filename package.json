@@ -8,16 +8,17 @@
 	"packageManager": "pnpm@9.12.2",
 	"scripts": {
 		"prepare": "husky",
-		"build": "rimraf dist && tsc",
-		"vercel-build": "prisma generate && prisma db push && prisma db seed && pnpm build",
-		"start": "ts-node app/index.ts",
+		"build": "pnpm prism:push && pnpm prisma:seed && rimraf dist && tsc",
+		"start": "node dist/app/index.js",
 		"dev": "nodemon app/index.ts",
 		"lint": "eslint \"**/*.ts\" --fix",
 		"format": "prettier --write \"**/*.{ts,js,mjs,cjs,json,md}\" && prisma format",
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
-		"test:e2e": "vitest run -c ./vitest.config.e2e.mjs"
+		"test:e2e": "vitest run -c ./vitest.config.e2e.mjs",
+		"prisma:push": "prisma generate && prisma db push",
+		"prisma:seed": "prisma db seed"
 	},
 	"dependencies": {
 		"@prisma/client": "^5.21.1",
