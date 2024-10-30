@@ -1,0 +1,10 @@
+frontend:
+    path: ./
+    publish: /dist
+    scripts:
+        build: pnpm build
+        deploy: pnpm i --frozen-lockfile
+    subdomain: irfandi-betest
+name: irfandi-betest
+region: us-east-1
+yamlVersion: 2
