@@ -4,7 +4,7 @@
 	"description": "A Technical Test for Backend Developer (TypeScript, Express, MongoDB, Redis, Kafka)",
 	"main": "dist/index.js",
 	"author": "irfnd <irfandiabimanyu@gmail.com>",
-	"license": "UNLICENSED",
+	"license": "MIT",
 	"packageManager": "pnpm@9.12.2",
 	"scripts": {
 		"prepare": "husky",
