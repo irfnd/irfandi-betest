@@ -16,7 +16,7 @@ import { setScalar } from './utils/others/scalar';
 
 export class App {
 	public app: Express;
-	public server?: ReturnType<Express['listen']>;
+	public server?: any;
 
 	constructor() {
 		this.app = express();

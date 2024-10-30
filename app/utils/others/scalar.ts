@@ -2,7 +2,7 @@ import { apiReference } from '@scalar/express-api-reference';
 import fs from 'fs';
 import { parse as parseYaml } from 'yaml';
 
-const OpenApiFile = fs.readFileSync(__dirname + '/openapi.yaml', { encoding: 'utf8' });
+const OpenApiFile = fs.readFileSync('openapi.yaml', { encoding: 'utf8' });
 const OpenApiSpec = parseYaml(OpenApiFile);
 
 export const setScalar = apiReference({
