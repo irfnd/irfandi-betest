@@ -14,7 +14,7 @@ info:
     email: irfandiabimanyu@gmail.com
 servers:
   - url: http://localhost:8080
-  - url: https://ms-irfandi-betest.vercel.app
+  - url: https://ms-irfandi-betest.onrender.com
 
 components:
   schemas:
@@ -39,18 +39,18 @@ components:
           example: user.one@mail.com
         accountNumber:
           type: string
-          example: "000000001"
+          example: '000000001'
         identityNumber:
           type: string
-          example: "000000001"
+          example: '000000001'
         createdAt:
           type: string
           format: date-time
-          example: "2021-07-14T00:00:00.000Z"
+          example: '2021-07-14T00:00:00.000Z'
         updatedAt:
           type: string
           format: date-time
-          example: "2021-07-14T00:00:00.000Z"
+          example: '2021-07-14T00:00:00.000Z'
     ValidationError:
       type: object
       required:
@@ -59,10 +59,10 @@ components:
       properties:
         message:
           type: string
-          example: "Path validation message"
+          example: 'Path validation message'
         path:
           type: string
-          example: "Validation path"
+          example: 'Validation path'
     SignInBody:
       required:
         - emailAddress
@@ -93,10 +93,10 @@ components:
           example: user.one@mail.com
         accountNumber:
           type: string
-          example: "000000001"
+          example: '000000001'
         identityNumber:
           type: string
-          example: "000000001"
+          example: '000000001'
     UpdateUserBody:
       type: object
       properties:
@@ -109,10 +109,10 @@ components:
           example: user.one@mail.com
         accountNumber:
           type: string
-          example: "000000001"
+          example: '000000001'
         identityNumber:
           type: string
-          example: "000000001"
+          example: '000000001'
     BaseResponseUnauthorized:
       type: object
       required:
@@ -145,7 +145,7 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/ValidationError"
+            $ref: '#/components/schemas/ValidationError'
     BaseResponseNotFound:
       type: object
       required:
@@ -198,7 +198,7 @@ components:
           properties:
             token:
               type: string
-              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzIwZjU1OTQ3MDUzOWIyYWVkOWM2ZTUiLCJpYXQiOjE2MjYwNjYwNzYsImV4cCI6MTYyNjA2NjA3N30.7"
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzIwZjU1OTQ3MDUzOWIyYWVkOWM2ZTUiLCJpYXQiOjE2MjYwNjYwNzYsImV4cCI6MTYyNjA2NjA3N30.7'
     SignInResponseUnauthorized:
       type: object
       required:
@@ -231,7 +231,7 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/User"
+            $ref: '#/components/schemas/User'
     CreateUserResponseOk:
       type: object
       required:
@@ -246,7 +246,7 @@ components:
           type: string
           example: User created
         results:
-          $ref: "#/components/schemas/User"
+          $ref: '#/components/schemas/User'
     UpdateUserResponseOk:
       type: object
       required:
@@ -261,7 +261,7 @@ components:
           type: string
           example: User updated
         results:
-          $ref: "#/components/schemas/User"
+          $ref: '#/components/schemas/User'
     DeleteUserResponseOk:
       type: object
       required:
@@ -276,7 +276,7 @@ components:
           type: string
           example: User deleted
         results:
-          $ref: "#/components/schemas/User"
+          $ref: '#/components/schemas/User'
   securitySchemes:
     Bearer:
       type: http
@@ -298,7 +298,7 @@ paths:
       tags:
         - Auth
       summary: Sign In Admin
-      description: "Sign In Admin"
+      description: 'Sign In Admin'
       operationId: signIn
       parameters: []
       security: []
@@ -307,90 +307,90 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SignInBody"
+              $ref: '#/components/schemas/SignInBody'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/SignInBody"
+              $ref: '#/components/schemas/SignInBody'
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SignInResponseOk"
+                $ref: '#/components/schemas/SignInResponseOk'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/SignInResponseOk"
-        "400":
+                $ref: '#/components/schemas/SignInResponseOk'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseBadRequest"
+                $ref: '#/components/schemas/BaseResponseBadRequest'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseBadRequest"
-        "401":
+                $ref: '#/components/schemas/BaseResponseBadRequest'
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SignInResponseUnauthorized"
+                $ref: '#/components/schemas/SignInResponseUnauthorized'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/SignInResponseUnauthorized"
-        "500":
+                $ref: '#/components/schemas/SignInResponseUnauthorized'
+        '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
   /users:
     get:
       tags:
         - Users
       summary: Find All Users
-      description: "Find All Users"
+      description: 'Find All Users'
       operationId: findAllUsers
       parameters: []
       security:
         - Bearer: []
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/FindAllUserResponseOk"
+                $ref: '#/components/schemas/FindAllUserResponseOk'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/FindAllUserResponseOk"
-        "401":
+                $ref: '#/components/schemas/FindAllUserResponseOk'
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseUnauthorized"
+                $ref: '#/components/schemas/BaseResponseUnauthorized'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseUnauthorized"
-        "500":
+                $ref: '#/components/schemas/BaseResponseUnauthorized'
+        '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
     post:
       tags:
         - Users
       summary: Create User
-      description: "Create User"
+      description: 'Create User'
       operationId: createUser
       parameters: []
       security:
@@ -400,53 +400,53 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateUserBody"
+              $ref: '#/components/schemas/CreateUserBody'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/CreateUserBody"
+              $ref: '#/components/schemas/CreateUserBody'
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateUserResponseOk"
+                $ref: '#/components/schemas/CreateUserResponseOk'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/CreateUserResponseOk"
-        "400":
+                $ref: '#/components/schemas/CreateUserResponseOk'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseBadRequest"
+                $ref: '#/components/schemas/BaseResponseBadRequest'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseBadRequest"
-        "401":
+                $ref: '#/components/schemas/BaseResponseBadRequest'
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseUnauthorized"
+                $ref: '#/components/schemas/BaseResponseUnauthorized'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseUnauthorized"
-        "500":
+                $ref: '#/components/schemas/BaseResponseUnauthorized'
+        '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
   /users/{number}:
     get:
       tags:
         - Users
       summary: Find User By Number
-      description: "Find User By Account Number/Identity Number"
+      description: 'Find User By Account Number/Identity Number'
       operationId: findUserByNumber
       security:
         - Bearer: []
@@ -456,60 +456,60 @@ paths:
           required: true
           schema:
             type: string
-            example: "000000001"
+            example: '000000001'
           description: Account Number/Identity Number
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: '#/components/schemas/User'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/User"
-        "400":
+                $ref: '#/components/schemas/User'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseBadRequest"
+                $ref: '#/components/schemas/BaseResponseBadRequest'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseBadRequest"
-        "401":
+                $ref: '#/components/schemas/BaseResponseBadRequest'
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseUnauthorized"
+                $ref: '#/components/schemas/BaseResponseUnauthorized'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseUnauthorized"
-        "404":
+                $ref: '#/components/schemas/BaseResponseUnauthorized'
+        '404':
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseNotFound"
+                $ref: '#/components/schemas/BaseResponseNotFound'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseNotFound"
-        "500":
+                $ref: '#/components/schemas/BaseResponseNotFound'
+        '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
   /users/{id}:
     patch:
       tags:
         - Users
       summary: Update User By ID
-      description: "Update User by ID"
+      description: 'Update User by ID'
       operationId: updateUser
       security:
         - Bearer: []
@@ -526,61 +526,61 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateUserBody"
+              $ref: '#/components/schemas/UpdateUserBody'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/UpdateUserBody"
+              $ref: '#/components/schemas/UpdateUserBody'
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UpdateUserResponseOk"
+                $ref: '#/components/schemas/UpdateUserResponseOk'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/UpdateUserResponseOk"
-        "400":
+                $ref: '#/components/schemas/UpdateUserResponseOk'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseBadRequest"
+                $ref: '#/components/schemas/BaseResponseBadRequest'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseBadRequest"
-        "401":
+                $ref: '#/components/schemas/BaseResponseBadRequest'
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseUnauthorized"
+                $ref: '#/components/schemas/BaseResponseUnauthorized'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseUnauthorized"
-        "404":
+                $ref: '#/components/schemas/BaseResponseUnauthorized'
+        '404':
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseNotFound"
+                $ref: '#/components/schemas/BaseResponseNotFound'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseNotFound"
-        "500":
+                $ref: '#/components/schemas/BaseResponseNotFound'
+        '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
     delete:
       tags:
         - Users
       summary: Delete User By ID
-      description: "Delete User by ID"
+      description: 'Delete User by ID'
       operationId: deleteUser
       security:
         - Bearer: []
@@ -593,48 +593,48 @@ paths:
             example: 6720f559470539b2aed9c6e5
           description: User ID
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DeleteUserResponseOk"
+                $ref: '#/components/schemas/DeleteUserResponseOk'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/DeleteUserResponseOk"
-        "400":
+                $ref: '#/components/schemas/DeleteUserResponseOk'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseBadRequest"
+                $ref: '#/components/schemas/BaseResponseBadRequest'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseBadRequest"
-        "401":
+                $ref: '#/components/schemas/BaseResponseBadRequest'
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseUnauthorized"
+                $ref: '#/components/schemas/BaseResponseUnauthorized'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseUnauthorized"
-        "404":
+                $ref: '#/components/schemas/BaseResponseUnauthorized'
+        '404':
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseNotFound"
+                $ref: '#/components/schemas/BaseResponseNotFound'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseNotFound"
-        "500":
+                $ref: '#/components/schemas/BaseResponseNotFound'
+        '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
             application/x-www-form-urlencoded:
               schema:
-                $ref: "#/components/schemas/BaseResponseInternalServerError"
+                $ref: '#/components/schemas/BaseResponseInternalServerError'
